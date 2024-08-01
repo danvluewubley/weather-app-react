@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Head from "./Head";
-import Details from "./Details";
+import Weather from "./Weather";
 
 const apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
@@ -88,10 +87,18 @@ function Card() {
             <img src="search.png"></img>
           </button>
         </div>
-        <div className={style}>
-          <Head weatherIcon={weatherIcon} temp={temp} name={name} />
-          <Details humidity={humidity} wind={wind} highLow={highLow} feelsLike={feelsLike} sunrise={sunrise} sunset={sunset}/>
-        </div>
+        <Weather
+          style={style}
+          weatherIcon={weatherIcon}
+          temp={temp}
+          name={name}
+          humidity={humidity}
+          wind={wind}
+          highLow={highLow}
+          feelsLike={feelsLike}
+          sunrise={sunrise}
+          sunset={sunset}
+        />
       </div>
     </>
   );
