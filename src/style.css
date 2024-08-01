@@ -99,8 +99,11 @@ body{
 .category{
   font-size: 12px;
 }
-.weather{
+.hidden{
   display: none;
+}
+.show{
+  display: block;
 }
 .error{
   text-align: left;
