@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Head from "./Head";
+import Details from "./Details";
 
 const apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
@@ -7,9 +9,9 @@ const apiKey = "e22eb6317cbef951ad4d392d20fb6553";
 function Card() {
   let data;
   const [style, setStyle] = useState("hidden");
-  const [weatherIcon, setWeatherIcon] = useState("");
-  const [name, setName] = useState("");
-  const [temp, setTemp] = useState("");
+  const [weatherIcon, setWeatherIcon] = useState("clouds.png");
+  const [name, setName] = useState("New York");
+  const [temp, setTemp] = useState("60");
   const [humidity, setHumidity] = useState("");
   const [wind, setWind] = useState("");
   const [highLow, setHighLow] = useState("");
@@ -34,8 +36,13 @@ function Card() {
     setName(data.name);
     setTemp(Math.round(data.main.temp) + "°F");
     setHumidity(data.main.humidity + "%");
-    setWind(data.wind.speed + " km/h")
-    setHighLow(Math.round(data.main.temp_max) + "°F/" + Math.round(data.main.temp_min) + "°F");
+    setWind(data.wind.speed + " km/h");
+    setHighLow(
+      Math.round(data.main.temp_max) +
+        "°F/" +
+        Math.round(data.main.temp_min) +
+        "°F"
+    );
     setFeelsLike(Math.round(data.main.feels_like) + "°F");
     setSunrise(updateTime(sunriseTime));
     setSunset(updateTime(sunsetTime));
@@ -53,12 +60,14 @@ function Card() {
     }
   }
 
-  function updateTime(time){
+  function updateTime(time) {
     var utc = time.getUTCHours();
     var timeHoursIn12HrFormat = utc >= 13 ? utc % 12 : utc;
     var timeampm = utc >= 12 ? "PM" : "AM";
     var timeMinutes = "0" + time.getUTCMinutes();
-    return timeHoursIn12HrFormat + ':' + timeMinutes.substr(-2) + ' '+ timeampm
+    return (
+      timeHoursIn12HrFormat + ":" + timeMinutes.substr(-2) + " " + timeampm
+    );
   }
 
   const changeStyle = () => {
@@ -80,55 +89,8 @@ function Card() {
           </button>
         </div>
         <div className={style}>
-          <img src={weatherIcon} className="weather-icon"></img>
-          <h1 className="temp">{temp}</h1>
-          <h2 className="city">{name}</h2>
-          <div className="details">
-            <div className="grid">
-              <div className="col">
-                <img src="humidity.png"></img>
-                <div>
-                  <p className="humidity">{humidity}</p>
-                  <p className="category">Humidity</p>
-                </div>
-              </div>
-              <div className="col">
-                <img src="wind.png"></img>
-                <div>
-                  <p className="wind">{wind}</p>
-                  <p className="category">Wind Speed</p>
-                </div>
-              </div>
-              <div className="col">
-                <img src="temperatures.png"></img>
-                <div>
-                  <p className="high-low">{highLow}</p>
-                  <p className="category">High/Low</p>
-                </div>
-              </div>
-              <div className="col">
-                <img src="thermometer.png"></img>
-                <div>
-                  <p className="feels-like">{feelsLike}</p>
-                  <p className="category">Feels Like</p>
-                </div>
-              </div>
-              <div className="col">
-                <img src="sunrise.png"></img>
-                <div>
-                  <p className="sunrise">{sunrise}</p>
-                  <p className="category">Sunrise</p>
-                </div>
-              </div>
-              <div className="col">
-                <img src="sunset.png"></img>
-                <div>
-                  <p className="sunset">{sunset}</p>
-                  <p className="category">Sunset</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Head weatherIcon={weatherIcon} temp={temp} name={name} />
+          <Details humidity={humidity} wind={wind} highLow={highLow} feelsLike={feelsLike} sunrise={sunrise} sunset={sunset}/>
         </div>
       </div>
     </>
