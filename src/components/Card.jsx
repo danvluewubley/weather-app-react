@@ -3,7 +3,9 @@ import Weather from "./Weather";
 
 const apiUrl =
   "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
-const apiKey = "e22eb6317cbef951ad4d392d20fb6553";
+
+const apiKey = import.meta.env.VITE_API_KEY;
+// const apiKey = "e22eb6317cbef951ad4d392d20fb6553";
 
 function Card() {
   let data;
