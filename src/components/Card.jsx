@@ -15,6 +15,7 @@ function Card() {
   const [sunrise, setSunrise] = useState("");
   const [sunset, setSunset] = useState("");
   const [city, setCity] = useState("");
+  const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -35,11 +36,15 @@ function Card() {
       console.log(data);
     } catch (error) {
       console.error("Fetch error:", error);
+      setError(
+        "Could not fetch weather data. Please check the city name or try again later."
+      );
     }
   }
 
   return (
     <div className="card">
+      
       <form className="search" onSubmit={handleSubmit}>
         <input
           type="text"
